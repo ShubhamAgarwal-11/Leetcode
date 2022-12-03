@@ -24,9 +24,7 @@ public:
         for(int i=1;i<k;i++){
             first=first->next;
         }
-        auto temp=first->val;
-        first->val=second->val;
-        second->val=temp;
+        swap(first->val,second->val);
         return head;
     }
 };
