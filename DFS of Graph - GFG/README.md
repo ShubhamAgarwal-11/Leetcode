@@ -17,7 +17,7 @@
 4 is connected to 2.
 so starting from 0, it will go to 2 then 4,
 and then 3 and 1.
-Thus dfs will be 0 1 2 4 3.</span>
+Thus dfs will be 0 2 4 3 1.</span>
 </pre>
 
 <p><span style="font-size:18px"><strong>Example 2:</strong></span></p>
