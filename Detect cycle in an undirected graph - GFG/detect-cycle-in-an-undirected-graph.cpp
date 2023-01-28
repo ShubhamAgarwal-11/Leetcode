@@ -8,7 +8,6 @@ class Solution {
     // Function to detect cycle in an undirected graph.
     bool cycle(vector<int>adj[],int u,int parent,vector<bool>&visited){
         visited[u] = true;
-        
         for(auto&v : adj[u]){
             if(v == parent)
                 continue;
@@ -22,9 +21,8 @@ class Solution {
     bool isCycle(int V, vector<int> adj[]) {
         // Code here
         vector<bool>visited(V,false);
-        
         for(int i=0;i<V;i++){
-            if(visited[i] == false && cycle(adj,i,-1,visited))
+            if(!visited[i] && cycle(adj,i,-1,visited))
                 return true;
         }
         return false;
