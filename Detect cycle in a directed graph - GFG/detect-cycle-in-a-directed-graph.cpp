@@ -6,29 +6,41 @@ using namespace std;
 class Solution {
   public:
     // Function to detect cycle in a directed graph.
-    bool cycleDFS(vector<int>adj[],int source,vector<bool>&visited,vector<bool>&inRecursion){
-        visited[source] = true;
-        inRecursion[source] = true;
-        
-        for(auto x : adj[source]){
-            if(!visited[x] && cycleDFS(adj,x,visited,inRecursion))
-                return true;
-            else if(inRecursion[x])
-                return true;
-        }
-        inRecursion[source] = false;
-        return false;
-    }
     bool isCyclic(int V, vector<int> adj[]) {
-        // code here
-        vector<bool>visited(V,false);
-        vector<bool>inRecursion(V,false);
-        
-        for(int i=0;i<V;i++){
-            if(!visited[i] && cycleDFS(adj,i,visited,inRecursion))
-                return true;
+      
+        vector<int>indegree(V,0);
+        for(int u=0;u<V;u++){
+            for(auto&v : adj[u]){
+                indegree[v]++;
+            }
         }
-        return false;
+        
+        int count=0;
+        queue<int>que;
+        for(int i=0;i<V;i++){
+            if(indegree[i] == 0){
+                que.push(i);
+                count++;
+            }
+        }
+        
+        while(!que.empty()){
+            int u= que.front();
+            que.pop();
+            
+            for(auto&v : adj[u]){
+                indegree[v]--;
+                if(indegree[v] == 0){
+                    que.push(v);
+                    count++;
+                }
+            }
+        }
+        
+        if(count == V)
+            return false;
+        else
+            return true;
     }
 };
 
