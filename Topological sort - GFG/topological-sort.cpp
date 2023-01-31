@@ -7,27 +7,32 @@ class Solution
 {
 	public:
 	//Function to return list containing vertices in Topological order. 
-	void topology(vector<int>adj[],int u,vector<bool>&visited,stack<int>&stk){
-	    visited[u] = true;;
-	    
-	    for(auto&v : adj[u]){
-	        if(visited[v] == false)
-	            topology(adj,v,visited,stk);
-	    }
-	    stk.push(u);
-	}
 	vector<int> topoSort(int V, vector<int> adj[]) 
 	{
-	    vector<bool>visited(V,false);
-	    stack<int>stk;
-	    for(int i=0;i<V;i++){
-	        if(!visited[i])
-	            topology(adj,i,visited,stk);
+	    vector<int>indegree(V,0);
+	    for(int u=0;u<V;u++){
+	        for(auto&v : adj[u]){
+	            indegree[v]++;
+	        }
 	    }
+	    
+	    queue<int>que;
+	    for(int i=0;i<V;i++){
+	        if(indegree[i] == 0)
+	            que.push(i);
+	    }
+	    
 	    vector<int>result;
-	    while(!stk.empty()){
-	        result.push_back(stk.top());
-	        stk.pop();
+	    while(!que.empty()){
+	        int u = que.front();
+	        que.pop();
+	        result.push_back(u);
+	        
+	        for(auto&v : adj[u]){
+	            indegree[v]--;
+	            if(indegree[v] == 0)
+	                que.push(v);
+	        }
 	    }
 	    return result;
 	}
