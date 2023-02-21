@@ -1,5 +1,7 @@
 class Solution {
 public:
+    
+//     using Run length encoding algo.
     int compress(vector<char>& chars) {
         int n= chars.size();
         int i=0;
