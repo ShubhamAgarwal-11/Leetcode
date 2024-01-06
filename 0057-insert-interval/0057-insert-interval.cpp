@@ -1,8 +1,8 @@
 class Solution {
 public:
     vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
-        vector<vector<int>>result;
         int i=0;
+        vector<vector<int>>result;
         while(i<intervals.size()){
             if(intervals[i][1] < newInterval[0])
                 result.push_back(intervals[i]);
@@ -15,10 +15,8 @@ public:
             i++;
         }
         result.push_back(newInterval);
-        while(i<intervals.size()){
-            result.push_back(intervals[i]);
-            i++;
-        }
+        for(int j=i;j<intervals.size();j++)
+            result.push_back(intervals[j]);
         return result;
     }
 };
