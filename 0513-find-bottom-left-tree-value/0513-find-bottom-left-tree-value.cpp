@@ -11,36 +11,17 @@
  */
 class Solution {
 public:
-    vector<vector<int>> helper(TreeNode* root){
-        vector<vector<int>>result;
-        queue<TreeNode*>pendingNodes;
-        if(root == nullptr)
-            return result;
-        pendingNodes.push(root);
-        while(1){
-            if(pendingNodes.size() == 0)
-                return result;
-            vector<int>level;
-            int size = pendingNodes.size();
-            while(size--){
-                TreeNode*temp = pendingNodes.front();
-                pendingNodes.pop();
-                level.push_back(temp->val);
-                if(temp->left != nullptr)
-                    pendingNodes.push(temp->left);
-                if(temp->right != nullptr)
-                    pendingNodes.push(temp->right);
-            }
-            result.push_back(level);
-        }
-    }
     int findBottomLeftValue(TreeNode* root) {
-        
-        vector<vector<int>>result;
-        result = helper(root);
-        
-        return result[result.size()-1][0]; 
+        queue<TreeNode*>pendingNodes;
+        pendingNodes.push(root);
+        while(pendingNodes.size() != 0){
+            root = pendingNodes.front();
+            pendingNodes.pop();
+            if(root->right != nullptr)
+                pendingNodes.push(root->right);
+            if(root->left != nullptr)
+                pendingNodes.push(root->left);
+        }
+        return root->val;
     }
 };
-
-
