@@ -1,10 +1,20 @@
 class Solution {
 public:
-    void DFS(unordered_map<int,vector<int>>&adj,int u,vector<bool>&visited){
+    void BFS(unordered_map<int,vector<int>>&adj,int u,vector<bool>&visited){
+        queue<int>que;
         visited[u] = true;
-        for(auto&v : adj[u]){
-            if(visited[v] == false)
-                DFS(adj,v,visited);
+        que.push(u);
+        
+        while(!que.empty()){
+            int temp = que.front();
+            que.pop();
+            
+            for(auto&v : adj[temp]){
+                if(visited[v] == false){
+                    que.push(v);
+                    visited[v] = true;
+                }
+            }
         }
     }
     
@@ -24,7 +34,7 @@ public:
         for(int i=0;i<n;i++){
             if(visited[i] == false){
                 count++;
-                DFS(adj,i,visited);
+                BFS(adj,i,visited);
             }
         }
         return count;
